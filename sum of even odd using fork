@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include<sys/types.h>
+#include<sys/wait.h>
+int main()
+{
+    int i, n;
+    int sumOdd=0,sumEven=0;
+    int *arr;
+    pid_t p;
+    printf("enter the array limit=");
+    scanf("%d",&n);
+    arr=(int*)malloc(n * sizeof(int));
+    printf("enter the array element=");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    p=fork();
+    if(p==-1)
+    {
+        printf("fork failed");
+        exit(1);
+    }
+    else if(p==0)
+    {
+        printf("child process running \n");
+        for(i=0;i<n;i++)
+        {
+            if(arr[i]%2==0)
+            sumEven=sumEven+arr[i];
+        }
+        printf("summof even process=%d",sumEven \n);
+    }
+    else
+    {
+        wait(NULL);
+        printf("parent process running \n");
+        for(i=0;i<n;i++)
+        {
+            if(arr[i]%2!=0)
+            sumOdd=sumOdd+arr[i];
+        }
+        printf("summof Odd process=%d",sumOdd);
+    }
+    free(arr);
+    return 0;
+}
