@@ -1,0 +1,19 @@
+#include<stdio.h>
+#include<sys/types.h>
+#include<unistd.h>
+int main()
+{
+  pid_t p;
+  p=fork();
+  if(p==0)
+  {
+      printf("I am child having I'd=%d \n",getpid());
+      printf("I am a parent having I'd=%d \n",getppid());
+  }
+  else
+  {
+      wait();
+      printf("My child I'd=%d \n",p);
+      printf("parent Id=%d \n",getppid());
+  }
+}
